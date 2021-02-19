@@ -13,12 +13,7 @@ export default new Vuex.Store({
     // 用于菜单切换的闭合状态 false:不闭合 true:闭合
     collapsed: false,
     // 用户信息
-    user: {
-      username: getUserCookie(),
-      appkey: '',
-      role: '',
-      email: '',
-    },
+    user: getUserCookie(),
   },
   mutations: {
     changeCollapsed(state) {

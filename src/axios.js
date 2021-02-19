@@ -10,7 +10,7 @@ instance.interceptors.request.use((config) => {
 
 instance.interceptors.response.use((response) => {
   console.log(response);
-  if (response.data.status) {
+  if (response.data.status === 'fail') {
     return Promise.reject(response.data.msg);
   }
   return response.data.data;

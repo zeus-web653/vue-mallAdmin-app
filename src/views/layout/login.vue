@@ -1,34 +1,23 @@
 <template>
   <div class="login">
-    <h1>每日优鲜后台管理系统</h1>
-    <a-form-model
-      class="login-form"
-      ref="loginForm"
-      :model="loginForm"
-      :rules="rules"
-      v-bind="layout"
-    >
-      <a-form-model-item has-feedback label="邮箱" prop="email">
-        <a-input v-model="loginForm.email" />
-      </a-form-model-item>
+      <a-form-model class="login-form"
+                ref="loginForm" :model="loginForm" :rules="rules" v-bind="layout">
+       <a-form-model-item has-feedback label="邮箱" prop="email">
+      <a-input v-model="loginForm.email" />
+    </a-form-model-item>
+    <a-form-model-item has-feedback label="密码" prop="password">
+      <a-input v-model="loginForm.password" type="password" autocomplete="off" />
+    </a-form-model-item>
 
-      <a-form-model-item has-feedback label="密码" prop="password">
-        <a-input
-          v-model="loginForm.password"
-          type="password"
-          autocomplete="off"
-        />
-      </a-form-model-item>
-
-      <a-form-model-item :wrapper-col="{ span: 14, offset: 4 }">
-        <a-button type="primary" @click="submitForm('loginForm')">
-          提交
-        </a-button>
-        <a-button style="margin-left: 10px" @click="resetForm('loginForm')">
-          重置
-        </a-button>
-      </a-form-model-item>
-    </a-form-model>
+    <a-form-model-item :wrapper-col="{ span: 14, offset: 4 }">
+      <a-button type="primary" @click="submitForm('loginForm')">
+        提交
+      </a-button>
+      <a-button style="margin-left: 10px" @click="resetForm('loginForm')">
+        重置
+      </a-button>
+    </a-form-model-item>
+  </a-form-model>
   </div>
 </template>
 <script>
@@ -44,7 +33,7 @@ export default {
       if (emailReg.test(value)) {
         return callback();
       }
-      return new Error('邮箱输入不正确，请重新输入');
+      return callback(new Error('邮箱格式不正确'));
     };
     const validatePass = (rule, value, callback) => {
       if (value === '') {
@@ -53,7 +42,6 @@ export default {
         callback();
       }
     };
-
     return {
       loginForm: {
         password: '',
@@ -73,18 +61,15 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          api
-            .login(this.loginForm)
-            .then((res) => {
-              console.log(res);
-              this.$store.dispatch('setUserInfo', res);
-              this.$router.push({
-                name: 'Home',
-              });
-            })
-            .catch((error) => {
-              this.$message.error(error);
+          api.login(this.loginForm).then((res) => {
+            console.log(res);
+            this.$store.dispatch('setUserInfo', res);
+            this.$router.push({
+              name: 'Home',
             });
+          }).catch((error) => {
+            this.$message.error(error);
+          });
           return true;
         }
         console.log('error submit!!');
@@ -97,6 +82,7 @@ export default {
   },
 };
 </script>
+
 <style lang="less">
-@import "~@/assets/css/login.less";
+@import url('~@/assets/css/login.less');
 </style>
