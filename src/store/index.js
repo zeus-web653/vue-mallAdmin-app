@@ -1,19 +1,17 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import {
-  setCookie,
-  getUserCookie,
-  removeUserCookie,
-} from '@/utils/userCookie';
+import { setCookie, getUserCookie, removeUserCookie } from '@/utils/userCookie';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    // 用于菜单切换的闭合状态 false:不闭合 true:闭合
+    // 导航的收放状态 false为展开  true为收起来
     collapsed: false,
     // 用户信息
     user: getUserCookie(),
+    // 存储菜单的路由
+    menuRoutes: [],
   },
   mutations: {
     changeCollapsed(state) {
@@ -30,25 +28,26 @@ export default new Vuex.Store({
         email: '',
       };
     },
+    changeMenuRoutes(state, routes) {
+      state.menuRoutes = routes;
+    },
   },
   actions: {
-    changeCollapsed({
-      commit,
-    }) {
+    changeCollapsed({ commit }) {
       commit('changeCollapsed');
     },
-    setUserInfo({
-      commit,
-    }, userInfo) {
+    setUserInfo({ commit }, userInfo) {
       commit('setUserInfo', userInfo);
       setCookie(userInfo);
     },
-    logout({
-      commit,
-    }) {
+    logout({ commit }) {
       commit('logout');
       removeUserCookie();
     },
+    changeMenuRoutes({ commit }, routes) {
+      commit('changeMenuRoutes', routes);
+    },
   },
-  modules: {},
+  modules: {
+  },
 });
