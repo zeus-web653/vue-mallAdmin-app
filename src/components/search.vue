@@ -12,7 +12,7 @@
           @change="handleChange"
           allowClear
         >
-          <a-select-option v-for="c in categoryList" :key="c.id" :value="c.id">
+          <a-select-option v-for="c in data" :key="c.id" :value="c.id">
             {{ c.name }}
           </a-select-option>
         </a-select>
@@ -30,7 +30,6 @@
   </div>
 </template>
 <script>
-import api from '@/api/category';
 
 export default {
   data() {
@@ -42,11 +41,11 @@ export default {
       categoryList: [],
     };
   },
+  props: ['data'],
   created() {
-    api.list().then((res) => {
-      console.log(res);
+    /* api.list().then((res) => {
       this.categoryList = res.data;
-    });
+    }); */
   },
   methods: {
     // 提交表单是的方法
@@ -55,7 +54,6 @@ export default {
     },
     // 切换类目时触发的函数
     handleChange(val) {
-      console.log(val);
       this.searchForm.category = val;
     },
   },
