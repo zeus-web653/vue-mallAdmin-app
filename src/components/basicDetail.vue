@@ -48,18 +48,13 @@ import categoryApi from '@/api/category';
 export default {
   data() {
     return {
-      form: {
-        title: '',
-        desc: '',
-        category: '',
-        c_items: [],
-        tags: [],
-      },
+
       rules: {},
       categoryList: [],
       categoryItems: [],
     };
   },
+  props: ['form'],
   created() {
     categoryApi.list().then((res) => {
       this.categoryList = res.data;

@@ -96,6 +96,8 @@ export default {
               this.getTableData();
             });
         },
+        okText: '确定',
+        cancelText: '取消',
         onCancel() {
           console.log('Cancel');
         },
