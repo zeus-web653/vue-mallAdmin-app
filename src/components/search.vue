@@ -23,7 +23,7 @@
           html-type="submit"
           :disabled="searchForm.user === '' || searchForm.password === ''"
         >
-          Log in
+          搜索
         </a-button>
       </a-form-model-item>
     </a-form-model>

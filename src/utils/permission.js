@@ -11,6 +11,9 @@ const roleToRoute = {
   {
     name: 'ProductAdd',
   },
+  {
+    name: 'ProductEdit',
+  },
   ],
   admin: [{
     name: 'Product',
@@ -23,6 +26,9 @@ const roleToRoute = {
   },
   {
     name: 'Category',
+  },
+  {
+    name: 'ProductEdit',
   },
   ],
 };
@@ -38,7 +44,9 @@ export default function getMenuRoute(role, routes) {
   const resultRoutes = routes.filter((r) => {
     const obj = r;
     if (allowRoutesName.indexOf(r.name) !== -1) {
-      const { children } = obj;
+      const {
+        children,
+      } = obj;
       obj.children = children.filter((c) => allowRoutesName.indexOf(c.name) !== -1);
       return true;
     }

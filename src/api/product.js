@@ -6,4 +6,7 @@ export default {
       params,
     });
   },
+  remove(params) {
+    return axios.delete(`/products/${params.id}`);
+  },
 };
