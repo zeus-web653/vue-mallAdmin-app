@@ -65,6 +65,16 @@ export default {
     };
   },
   props: ['form'],
+  created() {
+    if (this.form.images.length > 0) {
+      this.fileList = this.form.images.map((item, index) => ({
+        uid: index,
+        name: `image-${index}.png`,
+        status: 'done',
+        url: item,
+      }));
+    }
+  },
   methods: {
     handleChange({ file, fileList }) {
       console.log(file);
